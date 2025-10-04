@@ -1,0 +1,28 @@
+
+.styled-cancel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 16px;
+    text-align: left;
+    background: #fff;
+  }
+
+  .styled-cancel-table thead tr {
+    background-color: #8faab3;
+    color: white;
+  }
+
+  .styled-cancel-table th,
+  .styled-cancel-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+
+  .styled-cancel-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+
+  .styled-cancel-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }

@@ -1,0 +1,103 @@
+
+
+  .dashboard {
+    padding: 20px;
+    /* text-align: left; */
+  }
+
+  /* .header {
+    text-align: right;
+  } */
+
+  .thamd-cards {
+    display: flex;
+    gap: 20px;
+  }
+
+  .thamd-card {
+    background: #f9f9f9;
+    padding: 20px;
+    flex: 1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 360px;
+  }
+
+  .thamd-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #666;
+  }
+
+  .thamd-card h1 {
+    font-size: 36px;
+    margin: 10px 0;
+    color: #000;
+  }
+
+  .thamd-details {
+    margin-top: 10px;
+
+  }
+
+  .thamd-details p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333;
+    justify-content: end;
+  }
+
+  .thamd-details span {
+    font-size: 18px;
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+  }
+
+  /* Toggle Container */
+.toggle-container {
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+  align-items: center;
+}
+
+/* Toggle Button Styling */
+.toggle-button, .info-button {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 2px solid #451b04;
+  border-radius: 20px;
+  background: white;
+  color: #451b04;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-button {
+  padding: 8px 10px;
+  font-size: 16px;
+  border: 2px solid #451b04;
+  border-radius: 15px;
+  background: #451b04;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Active Toggle Button */
+.toggle-button.active  {
+  background: #451b04;
+  color: white;
+}
+
+/* Hover Effect */
+.toggle-button:hover, .info-button:hover {
+  background: #451b04;
+  color: white;
+}

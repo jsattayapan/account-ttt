@@ -1,38 +1,519 @@
-.App {
+
+.my-custom-scrollbar {
+position: relative;
+height: 400px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.login-frame {
+  background-color: #e3e3e3;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.menuBarBtn{
+  background-color: #33383E;
+  color:white;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.menuBarBtn-selected{
+  color:white;
+  padding: 10px;
+  background-color: #1a5191;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.personIcon{
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.personIconActive{
+  border: 2px solid #3ac952;
+  border-radius: 50%;
+}
+
+.personIconInactive{
+  border: 2px solid #ff0000;
+  border-radius: 50%;
+}
+
+.menuBarBtn:hover, .menuBarBtn-selected:hover{
+  cursor: pointer;
+  background-color: #30445b;
+}
+
+.menu-item, .menu-item-select {
+  color: white;
+  padding: 10px 15px;
+  justify-content: space-around;
+}
+
+.menu-item-select{
+  background-color: #1a5191;
+}
+
+.menu-item:hover {
+  background-color: #30445b;
+  cursor: pointer;
+}
+
+td {
+  padding-right: 5px;
+}
+
+.info-box{
+  background-color: #e3e3e3;
+  margin: 10px 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.rank-container {
+  /* background-color: green; */
+  padding: 0 10px;
+  margin: 30px;
+}
+
+.rank-number {
+  text-align: center;
+  font-size: 30px;
+  height: 60px;
+  background-color: #e3e3e3;
+  border-radius: 100px;
+  padding-top: 10px;
+}
+
+.rank-user{
+  padding: 10px;
+  background: linear-gradient(90deg, rgba(255,202,127,1) 0%, rgba(252,176,69,0.5994897959183674) 100%);
+
+}
+
+.sumBox {
+  background-color: #e3e3e3;
+  padding: 10px;
+  margin: 10px;
+  box-shadow:  3px 3px 6px #4c4c4c;
+}
+
+.vipBox{
+  /* text-align: center; */
+  margin: 10px;
+  background-color: #e3e3e3;
+  padding: 20px;
+  box-shadow:  3px 3px 6px #4c4c4c;
+  transition: all .1s;
+}
+
+.vipBox:hover {
+  transform: scale(1.04);
+  cursor: pointer;
+}
+
+.sumBox-title, .vipBox-title{
+  font-size:20px;
+}
+
+.sumBox-detail, .vipBox-detail{
+  font-size: 23px;
+  color: #0589aa;
+  font-weight: bold;
+}
+
+.summaryBtn {
+  text-align: center;
+  font-size: 30px;
+  padding: 20px 0;
+}
+
+.summaryBtn label {
+  padding-right: 100px;
+}
+
+.summaryBtn input {
+  margin-right: 10px;
+}
+
+.supplierBox {
+  background-color: #e3e3e3;
+  padding: 30px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.supplierBox:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.tr-hover:hover {
+  cursor: pointer;
+}
+
+.tr-hover:hover > .underline-blue {
+  text-decoration: underline;
+  color: blue;
+}
+
+.resort-report-table th {
+  background-color: #3257a8;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.tb-lg {
+  font-size: 18px;
+}
+.tb-sm {
+  font-size: 15px;
+}
+
+td input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.departmentTimetable {
+  background-color: #e3e3e3;
+  border: 2px solid black
+}
+
+.departmentTimetable:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.full-height{
+  height: 100%;
+  background-color: #33383E;
+}
+
+.fixIcon:hover ,.fixIconEmp:hover {
+  cursor: pointer;
+}
+
+.fixIcon{
+  color: white;
+  position: absolute;
+  right: 40px;
+  font-size: 1rem;
+  margin-right: 10px;
+  margin-top:10px;
+}
+
+.fixIconEmp {
+  position: absolute;
+  right: 40px;
+  font-size: 1rem;
+  margin-right: 10px;
+  margin-top:10px;
+}
+
+.fixIconEmpRelative {
+  position: relative;
+}
+
+.month-title{
+  font-size: 30px;
+  font-weight: bold;
+  color: #30445B;
+}
+
+.container-t {
+  border: 3px solid #e3e3e3;
+  padding: 10px;
+  margin-left: 30px;
+}
+
+.arrowBtn:hover {
+  cursor: pointer;
+}
+
+.subPage-select, .subPage {
+  color:white;
+  background: #33383E;
+  padding: 15px 0;
+}
+
+.subPage:hover, .icon-btn:hover, .salaryBox:hover {
+  background: #30445B;
+  cursor: pointer;
+}
+
+.subPage-select, .icon-btn-select {
+  background: #1A5191;
+  color: white;
+}
+
+.icon-btn {
+  background-color: #33383E;
+  color: #e3e3e3;
+}
+
+.salaryBox{
+  width: 100%;
+  padding: 50px 0;
+  background-color: #30445B;
+  text-align: center;
+  color:white
+}
+
+.salaryBoxShow{
+  padding: 20px;
+  width: 100%;
+  border: 2px solid #30445B;
+  text-align: right;
+}
+
+.logoImage {
+  animation: App-logo-spin infinite 5s linear;
 }
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotateY(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotateY(360deg);
   }
 }
+
+.timetable-line {
+  border-right: 2px dashed grey !important;
+}
+
+.building-card{
+  background-color: #e3e3e3;
+}
+
+.store-management ul li, .main-menu-mobile ul li  {
+  padding: 20px;
+  display: inline;
+  margin-right: 30px;
+}
+
+.store-management ul li:hover {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.selected-li{
+  font-weight: bold;
+  color: #19508F;
+  text-decoration: underline;
+}
+
+.main-menu-mobile-selected{
+  background-color: #30445B;
+  color:white;
+}
+
+.weekend {
+  background-color: #77bbff;
+}
+
+.jobImage {
+  width: 100%;
+}
+
+
+
+
+.ul-menu-bar li {
+  display: inline;
+  background-color: #e3e3e3;
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+.ul-menu-bar li:hover {
+  text-decoration: underline;
+  font-weight: bold;
+  background-color: #00bfff;
+  cursor: pointer;
+}
+
+.lazy-menu-item {
+  margin: auto;
+  text-align: center;
+  background-color: #e3e3e3;
+  padding: 20px 0;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 10px;
+}
+
+.lazy-menu-item:hover {
+  text-decoration: underline;
+  font-weight: bold;
+  background-color: #00bfff;
+  cursor: pointer;
+}
+
+
+
+.top-layer {
+    display:block;
+    position:absolute;
+    width:100vw;
+    height:100vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    overflow-y:hidden;
+    background-color: rgba(95, 95, 95, 0.3);
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+  margin-top: 200px;
+}
+
+.bottomLinkContainer {
+  position: fixed !important;
+  left: 0 !important;
+  background-color: #e3e3e3;
+  bottom: 0 !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.employeeSelection {
+  overflow-y: scroll;
+  height: 150px;
+}
+
+.vw100 {
+  width: 300px;
+}
+
+.reset {
+    all: unset;
+    display: block; /* Restore block-level elements */
+  }
+
+
+
+.personIconActive{
+  border: 2px solid #3ac952;
+  border-radius: 50%;
+}
+
+.personIconInactive{
+  border: 2px solid #ff0000;
+  border-radius: 50%;
+}
+
+.payroll-dashboard {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+.payroll-card {
+  flex: 1 1 250px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.payroll-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.payroll-icon-circle.up {
+  background: #e6f8ec;
+  color: #2da44e;
+}
+
+.payroll-icon-circle.down {
+  background: #fdeaea;
+  color: #d93025;
+}
+
+.payroll-icon-circle.big {
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+}
+
+.payroll-title {
+  font-size: 14px;
+  color: #666;
+}
+
+.payroll-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
+
+.payroll-change {
+  font-size: 13px;
+}
+
+.payroll-change.up {
+  color: #2da44e;
+}
+
+.payroll-change.down {
+  color: #d93025;
+}
+
+.payroll-subtitle {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+}
+
+.payroll-date-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.payroll-btn {
+  /* margin-top: 10px; */
+  padding: 8px 16px;
+  background: #6b46c1;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.payroll-btn:hover {
+  background: #553c9a;
+}
+
+
+
+/* user profile */

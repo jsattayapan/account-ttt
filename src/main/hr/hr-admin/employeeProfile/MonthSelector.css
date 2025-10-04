@@ -1,0 +1,47 @@
+.month-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  .month-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .btn-prev, .btn-next {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-prev:hover, .btn-next:hover {
+    background-color: #45a049;
+  }
+  
+  @media (max-width: 600px) {
+    .month-selector {
+      flex-direction: column;
+    }
+  
+    .btn-prev, .btn-next {
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    .month-dropdown {
+      width: 100%;
+    }
+  }
+  

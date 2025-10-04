@@ -1,0 +1,66 @@
+/* Scrollable Table */
+.tablez-container {
+    max-height: calc(100vh - 100px);
+    /* flex:1; */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+    border: 1px solid #ddd; /* Optional border for the scrollable area */
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  .info-table-container {
+    max-height: 400px;
+    flex:1;
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+    border: 1px solid #ddd; /* Optional border for the scrollable area */
+    border-radius: 8px;
+  }
+
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 16px;
+    text-align: left;
+    background: #fff;
+  }
+
+  /* Sticky Header */
+  .styled-table thead tr {
+    background-color: #8faab3;
+    color: white;
+  }
+
+  .styled-table th {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #8faab3; /* Ensure background remains on sticky */
+  }
+
+  .styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+
+  /* Alternating Row Colors */
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+
+  .styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Column Widths */
+  .styled-table th:nth-child(3),
+  .styled-table td:nth-child(3) {
+    width: auto; /* Allows the Name column to expand */
+  }
+
+  .styled-table th,
+  .styled-table td:not(:nth-child(3)) {
+    width: 100px; /* Fixed width for other columns */
+  }
