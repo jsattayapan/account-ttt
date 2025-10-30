@@ -13,6 +13,22 @@ export const addScheduleUpdateSalary = (data, callback) => {
   makePostRequest('hr/addScheduleUpdateSalary', data, res => callback(res))
 }
 
+
+export const getFingerPrintListById = (data, callback) => {
+  makePostRequest('hr/getFingerPrintListById', data, res => callback(res))
+}
+
+
+
+export const addFingerPrintToEmployee = (data, callback) => {
+  makePostRequest('hr/addFingerPrintToEmployee', data, res => callback(res))
+}
+
+
+export const deleteEmployeeFingerPrints = (data, callback) => {
+  makePostRequest('hr/deleteEmployeeFingerPrints', data, res => callback(res))
+}
+
 export const cancelEmployeeLeaveByPayroll = (data, callback) => {
   makePostRequest('hr/cancelEmployeeLeaveByPayroll', data, res => callback(res))
 }

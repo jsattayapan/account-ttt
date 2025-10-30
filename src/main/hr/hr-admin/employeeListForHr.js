@@ -37,7 +37,10 @@ import {
     getChecklistRecordListByEmployee,
     submitProbationResult,
     getWarningById,
-    updateWarningApprove
+    updateWarningApprove,
+    getFingerPrintListById,
+    deleteEmployeeFingerPrints,
+    addFingerPrintToEmployee
  } from './../tunnel'
 import server from './../../../login/tunnel'
 import CreateNewEmployee from './createNewEmployee';
@@ -156,12 +159,14 @@ class Profile extends React.Component {
         checklistList:[],
         selectedChecklist: null,
         checlistLinkList:[],
-        warningList:[]
+        warningList:[],
+        fingerPrintList: []
     }
   }
 
   componentDidMount(){
     this.loadEmployeeInfo()
+    this.getFingerPrintList()
     this.getNoteList()
     this.getLogsList()
     this.getLeaveList()
@@ -327,6 +332,17 @@ class Profile extends React.Component {
         if(res.status){
           this.setState(() => ({
               warningList: res.warningList
+          }))
+        }
+      })
+    }
+
+
+    getFingerPrintList = () => {
+      getFingerPrintListById({employeeId: this.props.employeeId}, res => {
+        if(res.status){
+          this.setState(() => ({
+              fingerPrintList: res.fingerPrintList
           }))
         }
       })
@@ -574,7 +590,7 @@ class Profile extends React.Component {
 
   render(){
     let {backBtn} = this.props
-    let { documentList, timetableRequest,leaveRequest, warningList,scanTimeRequest, subPage, employeeInfo, noteList, logsList, leaveList, employeePublicHolidayList, timetableList, checklistRecordList} = this.state
+    let { fingerPrintList, documentList, timetableRequest,leaveRequest, warningList,scanTimeRequest, subPage, employeeInfo, noteList, logsList, leaveList, employeePublicHolidayList, timetableList, checklistRecordList} = this.state
     let subPageList = ['Profile', 'ตารางเวลา', 'ประวัติการลา' ,  'เอกสาร', 'ใบเตือน', 'Notes']
     if(this.props.user.permissionList.includes('VIEW_EMP_LOGS')){
       subPageList = [...subPageList, 'Logs']
@@ -613,7 +629,7 @@ class Profile extends React.Component {
         </div>
         <div className="col-9">
           {
-            subPage === 'Profile' && <SubProfile user={this.props.user} employeeInfo={employeeInfo}
+            subPage === 'Profile' && <SubProfile reloadFingerPrintList={this.getFingerPrintList} fingerPrintList={fingerPrintList} user={this.props.user} employeeInfo={employeeInfo}
             departmentList={this.state.departmentList} positionList={this.state.positionList}
             submitPositionChange={this.submitPositionChange}
             getLogList={this.getLogsList} loadEmployeeInfo={this.loadEmployeeInfo} />
@@ -780,6 +796,97 @@ class SubProfile extends React.Component {
 
   }
 
+  handleDeleteFinger = (fingerId, fingerScanId) => {
+    let employeeInfo = this.props.employeeInfo
+    Swal.fire({
+      title: 'ลบลายนิ้วมือพนักงาน',
+      input: 'password',
+      inputLabel: 'ยืนยันผู้ใช้',
+      inputPlaceholder: 'กรุณาใส่รหัสผ่านผุ้ใช้',
+      inputAttributes: {
+      autocapitalize: 'off',
+      autocomplete: 'off',
+      maxlength: 128
+      },
+      showCancelButton: true,
+      confirmButtonText: 'ต่อไป',
+      cancelButtonText: 'ยกเลิก',
+      inputValidator: (value) => {
+      if (!value) {
+        return 'Password is required';
+      }
+      // return undefined or null means valid
+      }
+      }).then((result) => {
+      if (result.isConfirmed) {
+      const password = result.value;
+      // Proceed — e.g., call your auth function
+        server.login({username: this.props.user.username , password}, res => {
+              if(res.status){
+            deleteEmployeeFingerPrints({employeeId: employeeInfo.id, fingerId, fingerScanId}, res => {
+              if(res.status){
+                this.props.reloadFingerPrintList()
+              }
+            })
+        }else{
+            Swal.fire({
+            title: res.msg,
+            icon: 'error'
+          })
+        }
+              })
+      }
+      });
+  }
+
+  openAddFingerPrint = () => {
+    let employeeInfo = this.props.employeeInfo
+      let validateList = [{value: "1", label: 'Avatara'},{value: "2", label: 'Samed Pavilion'},{value: "NYU7250900753", label: 'Tecko AVA'} ]
+      console.log(validateList)
+  Swal.fire({
+    title: 'เลือกสถานที่ และ ID',
+    html: `
+<div style="width:400px;">
+  <select id="fingerScanSelect" class="swal2-select">
+    <option value="">-- กรุณาเลือกสถานที่ --</option>
+    ${validateList
+      .map(list => `<option value="${list.value}">${list.label}</option>`)
+      }
+  </select>
+
+  <input placeholder="Finger ID (ถ้ามี)" type="number" id="fingerId" class="swal2-input" style="margin-top:10px;" />
+</div>
+`,
+    focusConfirm: false,
+    showCancelButton: true,
+    preConfirm: () => {
+  const fingerScanId = document.getElementById('fingerScanSelect').value;
+  const fingerId = document.getElementById('fingerId').value;
+
+  if (!fingerScanId) {
+    Swal.showValidationMessage('กรุณาเลือกสถานที่');
+    return false;
+  }
+
+  return { fingerScanId, fingerId };
+}
+  }).then(result => {
+    if (result.isConfirmed) {
+      const {fingerScanId, fingerId} = result.value
+      addFingerPrintToEmployee({employeeId: employeeInfo.id, fingerScanId, fingerId}, res => {
+        if(res.status){
+          this.props.reloadFingerPrintList()
+        }else{
+          Swal.fire({
+          title: res.msg,
+          icon: 'error'
+        })
+        }
+      })
+    }
+  });
+};
+
 
   openUpdatePositionPopUp = () => {
       let employeeInfo = this.props.employeeInfo
@@ -849,7 +956,7 @@ class SubProfile extends React.Component {
       'วันศุกร์',    // 6
       'วันเสาร์'     // 7
     ];
-    let {employeeInfo} = this.props
+    let {employeeInfo, fingerPrintList} = this.props
     return( employeeInfo !== undefined && <div className="row">
         <div className="col-12">
           <h4><u>ข้อมูลส่วนตัว</u></h4>
@@ -874,7 +981,22 @@ class SubProfile extends React.Component {
         <div className="col-12">
           <h4><u>ข้อมูลการทำงาน</u></h4>
         </div>
-
+        <div className="col-12">
+          <table style={{maxWidth: '320px'}} className="table table-bordered">
+            <thead>
+              <tr>
+                <th>ลายนิ้วมือแสกนนิ้ว <button onClick={this.openAddFingerPrint} className="btn btn-success btn-sm">+ ลายนิ้วมือ</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                fingerPrintList.map(x => <tr>
+                  <td>{x.fingerScanId === "1" ? 'Avatara' : x.fingerScanId === "2" ? 'Samed Pavilion' : 'TeckoAva'} [#{x.fingerId}] <button onClick={() => this.handleDeleteFinger(x.fingerId, x.fingerScanId)} className="btn btn-danger btn-sm">ลบ</button></td>
+                </tr>)
+              }
+            </tbody>
+          </table>
+        </div>
 
 
         <TextField title='เริ่มทำงาน' value={employeeInfo.startJob} />

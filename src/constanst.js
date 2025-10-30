@@ -1,5 +1,5 @@
 // export let IP = 'https://tunit3-samed.ap.ngrok.io';
-export let IP = 'http://192.168.100.75:2229';
+export let IP = 'http://192.168.100.75:2225';
 
 
 
