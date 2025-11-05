@@ -10,7 +10,8 @@ import { getEmployeeTimeScanById,
   deleteEmployeeTimetable,
   submitemployeeDayOff,
   submitLeaveByPayroll,
-  insertOTByPayroll
+  insertOTByPayroll,
+  deleteFingerScanTimeByDate
 } from './../../tunnel'
 import { FaEllipsisV, FaCalendarTimes } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -449,21 +450,38 @@ return { startTime, endTime };
     totalDayForFullWork = timetableList.length - totalDayOff - totalLeave
 
 
+    const deleteFingerScanTimeByDateD = (scanType, date, employeeId) => {
+      console.log(scanType, date, employeeId);
+      var r = window.confirm(scanType, date, employeeId);
+      if(r){
+        deleteFingerScanTimeByDate({scanType, date, employeeId},res => {
+          if(!res.status){
+            alert(res.msg)
+            console.log(res);
+          }else{
+            props.refreshEmployeeList()
+            getTimetableByMonth(moment(timetableList[timetableList.length - 1].date, 'DD/MM/YYYY').toDate())
+          }
+        })
+      }
+    }
+
+
     return (
         <div className='row'>
             <div className='col-12'>
                <div className="row">
-                   <div className='col-12 text-end'> 
+                   <div className='col-12 text-end'>
                        <MonthSelector getTimetableByMonth={getTimetableByMonth} />
                         <label><FiCoffee /> วันหยุด: <b>{totalDayOff} วัน</b></label>
                         <br />
                         <label> <FaCalendarTimes /> ใช้สิทธิ์ลา: <b>{totalLeave} วัน</b></label>
                    </div>
                </div>
-               
+
                <div className="row">
-                   <div className='col-12'> 
-            
+                   <div className='col-12'>
+
                 <table className='table table-bordered table-striped '>
                     <thead>
                         <tr>
@@ -490,10 +508,10 @@ return { startTime, endTime };
                                         <ul style={{listStyleType: 'none', padding: '0', margin: '0'}}>
                                           {result.dateCol.map(de => <li><b>{de}</b></li>)}
                                           </ul></td>
-                                        <td>{`${time.start ? time.start.time : '-'}`}</td>
-                                        <td>{`${time.break ? time.break.time : '-'}`}</td>
-                                        <td>{`${time.continue ? time.continue.time : '-'}`}</td>
-                                        <td>{`${time.end ? time.end.time : '-'}`}</td>
+                                        <td>{time.start ? <button onClick={() => deleteFingerScanTimeByDateD('start', time.date, props.employeeInfo.id)} className="btn btn-danger btn-sm">{time.start.time}</button> : '-'}</td>
+                                      <td>{time.break ? <button onClick={() => deleteFingerScanTimeByDateD('break', time.date, props.employeeInfo.id)} className="btn btn-danger btn-sm">{time.break.time}</button> : '-'}</td>
+                                    <td>{time.continue ? <button onClick={() => deleteFingerScanTimeByDateD('continue', time.date, props.employeeInfo.id)} className="btn btn-danger btn-sm">{time.continue.time}</button> : '-'}</td>
+                                  <td>{time.end ? <button onClick={() => deleteFingerScanTimeByDateD('end', time.date, props.employeeInfo.id)} className="btn btn-danger btn-sm">{time.end.time}</button> : '-'}</td>
                                         <td>
                                         <ul style={{listStyleType: 'none', padding: '0', margin: '0'}}>
                                           {result.sumCol.map(de => <li><b>{de}</b></li>)}
@@ -516,7 +534,7 @@ return { startTime, endTime };
                 </table>
                 </div>
                </div>
-            
+
             </div>
         </div>
     )

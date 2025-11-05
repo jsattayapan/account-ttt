@@ -77,8 +77,8 @@ export const getItemsBySellerId = (data, callback) => {
   makePostRequest('stock/getItemsBySellerId', data, res => callback(res))
 }
 
-export const getPurchaseHistrories = callback => {
-  makeGetRequest('stock/getPurchaseHistrories', res => callback(res))
+export const getPurchaseHistrories = (data, callback) => {
+  makePostRequest('stock/getPurchaseHistrories', data, res => callback(res))
 }
 
 export const getSupplierById = (data, callback) => {

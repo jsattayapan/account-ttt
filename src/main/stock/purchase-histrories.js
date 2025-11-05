@@ -26,7 +26,7 @@ export default class PurchaseHistrories extends React.Component {
   }
 
   componentDidMount() {
-    getPurchaseHistrories(res => {
+    getPurchaseHistrories({month: this.state.selectedDate}, res => {
       if(res.status){
         let typeOptions = []
         res.purchaseHistrories.forEach(x => {
@@ -60,7 +60,7 @@ export default class PurchaseHistrories extends React.Component {
       showDetail: false,
       purchase: {}
     }))
-    getPurchaseHistrories(res => {
+    getPurchaseHistrories({month: this.state.selectedDate}, res => {
       if(res.status){
         let purchaseHistrories = res.purchaseHistrories.sort((a, b) => b.timestamp > a.timestamp)
         this.setState(() => ({
@@ -76,10 +76,10 @@ export default class PurchaseHistrories extends React.Component {
     getConfirmPurchaseById({id}, res => {
       if(res.status){
         console.log(res.purchase);
-          
+
           let purchase = res.purchase
-          
-          
+
+
           const subTotal = purchase.items.reduce((total, { total: t, vat }) => {
             if (vat === 'vat') {
               return purchase.includeVat === 1
@@ -94,19 +94,19 @@ export default class PurchaseHistrories extends React.Component {
             }
             return { sub: total.sub + t, vat: total.vat };
           }, { sub: 0, vat: 0 });
-          
+
           console.log(subTotal)
-    
-          
-    
-    
-          
+
+
+
+
+
           let itemsTotal = purchase.items.reduce((sum, i) => sum + (i.quantity * i.price), 0)
           let expenseTotal = purchase.expenses.reduce((sum, i) => sum + i.amount, 0)
           purchase['stockValue'] = subTotal.sub
           purchase['vat'] = subTotal.vat
           purchase['expenseValue'] = expenseTotal
-          purchase['total'] = subTotal.vat + subTotal.sub + expenseTotal - purchase.discount 
+          purchase['total'] = subTotal.vat + subTotal.sub + expenseTotal - purchase.discount
         this.setState(() => ({
           showDetail: true,
           purchase
@@ -132,9 +132,10 @@ export default class PurchaseHistrories extends React.Component {
     }else{
       newDate = new Date(date.getFullYear(), date.getMonth() - 1, 1)
     }
-    this.setState(() => ({
-      selectedDate: newDate
-    }))
+    this.setState({ selectedDate: newDate }, () => {
+  this.backPage();
+});
+
   }
 
   searchTextOnChange = e => {
