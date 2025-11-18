@@ -4,98 +4,98 @@ import numeral from 'numeral'
 import Select from 'react-select';
 import Swal from 'sweetalert2'
 import { submitReceiptFile, clearPaymentByPurchaseId, getConfirmPurchase, getConfirmPurchaseById, getSuppliers, submitPaymentToPurchase, deletePurchaseOrder } from './tunnel'
-export default class ConfirmPayment extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      poList: [],
-      showDetail: false,
-      purchase: {},
-      suppliers: [],
-    }
-  }
-  componentDidMount(){
-    getConfirmPurchase(res => {
-      if(res.status){
-        this.setState(() => ({poList: res.poList}))
-      }else{
-        alert(res.msg)
-      }
-    })
-    getSuppliers(res => {
-      if(res.status){
-        this.setState(() => ({suppliers: res.suppliers}))
-      }else{
-        alert(res.msg)
-      }
-    })
-  }
-
-
-  poClick = id => {
-    getConfirmPurchaseById({id}, res => {
-      if(res.status){
-        console.log(res.purchase);
-        this.setState(() => ({
-          showDetail: true,
-          purchase: res.purchase
-        }))
-      }else{
-        alert(res.msg)
-      }
-    })
-  }
-
-  backPage = () => {
-    this.setState(() => ({
-      showDetail: false,
-      purchase: {}
-    }))
-  }
-
-  render(){
-    return(
-      <div>
-        {!this.state.showDetail &&
-        <div className="row mt-4">
-          <div className="col-12">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>บริษัท/ร้านค้า</th>
-                  <th>สั่งซื้อโดย</th>
-                  <th>สถาณะ</th>
-                  <th>ค้างชำระ</th>
-                  <th>จ่ายแล้ว</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.poList.map(x => (
-                  <tr onClick={() => this.poClick(x.id)}>
-                    <td>{x.supplier}</td>
-                    <td>{x.requester}</td>
-                    <td>{x.status}</td>
-                    <td>{x.total - x.paid}</td>
-                    <td>{x.paid}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>}
-
-        {this.state.showDetail &&
-          <PurchaseDetail
-            purchase={this.state.purchase}
-            reloadById={this.poClick}
-            user={this.props.user}
-            setPurchase={purchase => this.setState(() => ({purchase}))}
-            suppliers={this.state.suppliers.reduce((result, i) => ([...result, {value: i.id, label: i.name}]), [])} />
-        }
-      </div>
-    )
-  }
-}
+// export default class ConfirmPayment extends React.Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       poList: [],
+//       showDetail: false,
+//       purchase: {},
+//       suppliers: [],
+//     }
+//   }
+//   componentDidMount(){
+//     getConfirmPurchase(res => {
+//       if(res.status){
+//         this.setState(() => ({poList: res.poList}))
+//       }else{
+//         alert(res.msg)
+//       }
+//     })
+//     getSuppliers(res => {
+//       if(res.status){
+//         this.setState(() => ({suppliers: res.suppliers}))
+//       }else{
+//         alert(res.msg)
+//       }
+//     })
+//   }
+//
+//
+//   poClick = id => {
+//     getConfirmPurchaseById({id}, res => {
+//       if(res.status){
+//         console.log(res.purchase);
+//         this.setState(() => ({
+//           showDetail: true,
+//           purchase: res.purchase
+//         }))
+//       }else{
+//         alert(res.msg)
+//       }
+//     })
+//   }
+//
+//   backPage = () => {
+//     this.setState(() => ({
+//       showDetail: false,
+//       purchase: {}
+//     }))
+//   }
+//
+//   render(){
+//     return(
+//       <div>
+//         {!this.state.showDetail &&
+//         <div className="row mt-4">
+//           <div className="col-12">
+//             <table className="table table-hover">
+//               <thead>
+//                 <tr>
+//                   <th>บริษัท/ร้านค้า</th>
+//                   <th>สั่งซื้อโดย</th>
+//                   <th>สถาณะ</th>
+//                   <th>ค้างชำระ</th>
+//                   <th>จ่ายแล้ว</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {this.state.poList.map(x => (
+//                   <tr onClick={() => this.poClick(x.id)}>
+//                     <td>{x.supplier}</td>
+//                     <td>{x.requester}</td>
+//                     <td>{x.status}</td>
+//                     <td>{x.total - x.paid}</td>
+//                     <td>{x.paid}</td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </div>}
+//
+//         {this.state.showDetail &&
+//           <PurchaseDetail
+//             purchase={this.state.purchase}
+//             reloadById={this.poClick}
+//             user={this.props.user}
+//             setPurchase={purchase => this.setState(() => ({purchase}))}
+//             suppliers={this.state.suppliers.reduce((result, i) => ([...result, {value: i.id, label: i.name}]), [])} />
+//         }
+//       </div>
+//     )
+//   }
+// }
 
 export class PurchaseDetail extends React.Component {
   constructor(props){

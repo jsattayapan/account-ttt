@@ -841,7 +841,7 @@ class SubProfile extends React.Component {
 
   openAddFingerPrint = () => {
     let employeeInfo = this.props.employeeInfo
-      let validateList = [{value: "1", label: 'Avatara'},{value: "2", label: 'Samed Pavilion'},{value: "NYU7250900753", label: 'Tecko AVA'} ]
+      let validateList = [{value: "1", label: 'Avatara'},{value: "2", label: 'Samed Pavilion'},{value: "NYU7250900753", label: 'Tecko AVA'} , {value: "NYU7250900825", label: 'Tecko PAV'} ]
       console.log(validateList)
   Swal.fire({
     title: 'เลือกสถานที่ และ ID',
@@ -991,7 +991,7 @@ class SubProfile extends React.Component {
             <tbody>
               {
                 fingerPrintList.map(x => <tr>
-                  <td>{x.fingerScanId === "1" ? 'Avatara' : x.fingerScanId === "2" ? 'Samed Pavilion' : 'TeckoAva'} [#{x.fingerId}] <button onClick={() => this.handleDeleteFinger(x.fingerId, x.fingerScanId)} className="btn btn-danger btn-sm">ลบ</button></td>
+                  <td>{x.fingerScanId === "1" ? 'Avatara' : x.fingerScanId === "2" ? 'Samed Pavilion' : x.fingerScanId === 'NYU7250900753' ?  'TeckoAva' : 'TeckoPav'} [#{x.fingerId}] <button onClick={() => this.handleDeleteFinger(x.fingerId, x.fingerScanId)} className="btn btn-danger btn-sm">ลบ</button></td>
                 </tr>)
               }
             </tbody>
